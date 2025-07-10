@@ -98,6 +98,8 @@ body {
   padding: 16px 16px;
   cursor: pointer;
   transition: background 0.2s;
+  justify-content: center;
+  align-items: center;
 }
 .toc-item.selected, .toc-item:focus {
   border-left: 4px solid var(--border);
@@ -157,13 +159,13 @@ body {
 .article-title {
   font-size: 1.25rem;
   font-weight: 700;
-  margin: 0 0 8px 0;
+  margin: 0 0 16px 0;
   color: var(--primary-text);
 }
 .article-date {
   font-size: 1rem;
   color: #aaa;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 .article-image {
   width: 100%;

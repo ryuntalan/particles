@@ -81,7 +81,17 @@ async function loadArticles() {
       return parseMarkdownArticle(text, file);
     })
   );
+  // Separate Welcome article
+  const welcomeIdx = articles.findIndex(a => a.title.trim().toLowerCase() === 'welcome to particles');
+  let welcomeArticle = null;
+  if (welcomeIdx !== -1) {
+    welcomeArticle = articles.splice(welcomeIdx, 1)[0];
+  }
+  // Sort the rest by date descending
   articles.sort((a, b) => (b.date > a.date ? 1 : -1));
+  if (welcomeArticle) {
+    articles.unshift(welcomeArticle);
+  }
   articlesGlobal = articles;
   if (isMobile) {
     renderMobileView();
@@ -169,12 +179,15 @@ function renderTOC(articles, mobile = false) {
     const desc = document.createElement('div');
     desc.className = 'toc-description';
     desc.textContent = article.description;
-    const date = document.createElement('div');
-    date.className = 'toc-date';
-    date.textContent = article.date;
     details.appendChild(title);
     details.appendChild(desc);
-    details.appendChild(date);
+    // Only show date if not Welcome article
+    if (article.title.trim().toLowerCase() !== 'welcome to particles') {
+      const date = document.createElement('div');
+      date.className = 'toc-date';
+      date.textContent = article.date;
+      details.appendChild(date);
+    }
     item.appendChild(thumb);
     item.appendChild(details);
     toc.appendChild(item);
@@ -195,15 +208,19 @@ function renderArticle(article, mobile = false) {
   const title = document.createElement('h1');
   title.className = 'article-title';
   title.textContent = article.title;
-  const date = document.createElement('div');
-  date.className = 'article-date';
-  date.textContent = article.date;
+  // Only show date if not Welcome article
+  let showDate = article.title.trim().toLowerCase() !== 'welcome to particles';
+  if (showDate) {
+    const date = document.createElement('div');
+    date.className = 'article-date';
+    date.textContent = article.date;
+    main.appendChild(date);
+  }
+  main.appendChild(title);
   const img = document.createElement('img');
   img.className = 'article-image';
   img.src = article.image || 'https://placehold.co/800x240';
   img.alt = article.title;
-  main.appendChild(title);
-  main.appendChild(date);
   main.appendChild(img);
   // Add caption if present
   if (article.caption) {
