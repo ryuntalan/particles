@@ -88,7 +88,7 @@ async function loadArticles() {
     welcomeArticle = articles.splice(welcomeIdx, 1)[0];
   }
   // Sort the rest by date descending
-  articles.sort((a, b) => (b.date > a.date ? 1 : -1));
+  articles.sort((a, b) => new Date(b.date) - new Date(a.date));
   if (welcomeArticle) {
     articles.unshift(welcomeArticle);
   }
