@@ -197,6 +197,22 @@ body {
   text-decoration: underline;
 }
 
+.article-content a {
+  color: var(--primary-text);
+  text-decoration: underline;
+ 
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 24px auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+}
+
+
 @media (max-width: 1200px) {
   .particles-app {
     max-width: 98vw;
